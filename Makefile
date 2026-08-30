@@ -34,6 +34,7 @@ valgrind: $(TARGET)
 # Remove build artefacts
 clean:
 	rm -f $(OBJECTS) $(TARGET)
+	clear
 	@echo "Cleaned."
 
 # Rebuild from scratch
