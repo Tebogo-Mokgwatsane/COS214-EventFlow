@@ -4,8 +4,8 @@ CXX      = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -g
 LDFLAGS  =
 
-SOURCES  = Subject.cpp EventGroup.cpp main.cpp
-OBJECTS  = Subject.o EventGroup.o main.o
+SOURCES  = $(wildcard *.cpp)
+OBJECTS  = $(SOURCES:.cpp=.o)
 
 TARGET   = eventflow
 
