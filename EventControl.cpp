@@ -1,18 +1,27 @@
 #include "EventControl.h"
 #include <iostream>
 
-EventControl::EventControl(const string &s,const Notice& type)
+EventControl::EventControl() : name("Control"), currentNotice()
 {
-    this->name=s;
-    this->currentNotice=type;
 }
-const Notice& EventControl::getCurrentNotice()const
+
+EventControl::EventControl(const std::string &s) : name(s), currentNotice()
 {
-    return currentNotice;
 }
-void EventControl::issueNotice(const Notice& notice)
+
+EventControl::EventControl(const std::string &s, const Notice &type)
+    : name(s), currentNotice(type)
 {
-    this->currentNotice=notice;
-    cout<< "\n[" << name << "] "<< notice.getMessage()<< std::endl;
-    notify(notice);
+}
+
+const Notice &EventControl::getCurrentNotice() const
+{
+  return currentNotice;
+}
+
+void EventControl::issueNotice(const Notice &notice)
+{
+  currentNotice = notice;
+  std::cout << "\n=== [" << name << "] ISSUES: " << notice.getMessage() << " (severity " << notice.getSeverity() << ") ===" << std::endl;
+  notify(notice);
 }

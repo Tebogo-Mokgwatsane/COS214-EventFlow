@@ -1,64 +1,55 @@
-#include "subject.h"
+#include "Subject.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
 using namespace std;
 
-bool Subject:: isRegistered(Observer* observer)const
+bool Subject::isRegistered(Observer *observer) const
 {
-    for(size_t i=0;i<registered.size();i++)
-    {
-        if(registered[i]==observer)
-        {
-            return true;
-        }
-    }
-    return false;
+  for (size_t i = 0; i < registered.size(); i++)
+  {
+    if (registered[i] == observer)
+      return true;
+  }
+  return false;
 }
-void Subject::attach(Observer* ob)
+
+void Subject::attach(Observer *ob)
 {
-    if(ob==NULL)
-    {
-        return;
-    }
-    if(isRegistered(ob)==true)
-    {
-        return;
-    }
-    registered.push_back(ob);
+  if (ob == NULL)
+    return;
+  if (isRegistered(ob))
+    return; // ignore duplicates
+  registered.push_back(ob);
 }
-void Subject:: detach(Observer * ob)
+
+void Subject::detach(Observer *ob)
 {
-    if(ob==NULL)
-    {
-        return;
-    }
-    if(isRegistered(ob)==false)
-    {
-        return;
-    }
-    vector<Observer*>::iterator it=find(registered.begin(),registered.end(),ob);
-    if(it !=registered.end())
-    {
-        registered.erase(it);
-    }
+  if (ob == NULL)
+    return;
+  vector<Observer *>::iterator it = find(registered.begin(), registered.end(), ob);
+  if (it != registered.end())
+    registered.erase(it);
+  // no-op if not found
 }
-void Subject::notify(const Notice& type)
+
+void Subject::notify(const Notice &notice)
 {
-    vector<Observer*> snap=registered;
-    for(Observer * observe:snap)
-    {
-        if(observe!= NULL && isRegistered(observe))
-        {
-            observe->update(type);
-        }
-    }
+  // snapshot so detach during notify is safe
+  vector<Observer *> snap = registered;
+  for (size_t i = 0; i < snap.size(); ++i)
+  {
+    if (snap[i] != NULL)
+      snap[i]->update(notice);
+  }
 }
+
 void Subject::clearObserver()
 {
-    registered.clear();
+  registered.clear();
 }
+
 Subject::~Subject()
 {
-    clearObserver();
+  clearObserver();
 }
