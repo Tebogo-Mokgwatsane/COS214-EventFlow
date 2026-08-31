@@ -30,7 +30,10 @@ void ShuttleStop::reportStatus() const
   std::cout << "Current Route: " << currentRoute << std::endl;
   std::cout << "Delayed: " << (delayed ? "Yes" : "No") << std::endl;
 }
-
+void ShuttleStop::update(const Notice& notice)
+{
+  //implement here
+}
 ShuttleStop::~ShuttleStop()
 {
 }

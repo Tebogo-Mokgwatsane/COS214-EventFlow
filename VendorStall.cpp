@@ -37,7 +37,10 @@ void VendorStall::reportStatus() const
   std::cout << "Serving: " << (serving ? "Yes" : "No") << std::endl;
   std::cout << "Outdoor: " << (outdoor ? "Yes" : "No") << std::endl;
 }
-
+void VendorStall::update(const Notice& notice)
+{
+  //implement here
+}
 VendorStall::~VendorStall()
 {
 }

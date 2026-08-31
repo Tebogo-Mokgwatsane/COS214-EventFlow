@@ -52,7 +52,10 @@ void Gate::reportStatus() const
   std::cout << "Admitting: " << (admitting ? "Yes" : "No") << std::endl;
   std::cout << "Exit Only: " << (exitOnly ? "Yes" : "No") << std::endl;
 }
-
+void Gate::update(const Notice& notice)
+{
+  //implement here
+}
 Gate::~Gate()
 {
 }
