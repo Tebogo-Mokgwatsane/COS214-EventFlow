@@ -34,10 +34,39 @@ void DroneDisplayUnit::reportStatus() const
   std::cout << "Airborne: " << (airbone ? "Yes" : "No") << std::endl;
   std::cout << "Demonstration Active: " << (demonstrationActive ? "Yes" : "No") << std::endl;
 }
+
 void DroneDisplayUnit::update(const Notice& notice)
 {
-  
+  std::cout << "  [DroneDisplayUnit] " << getName() << " received notice: " << notice.getMessage() << std::endl;
+  switch (notice.getType())
+  {
+  case OPEN_NOTICE:
+    open();
+    startDemonstration();
+    break;
+  case CLOSE_NOTICE:
+    landDrones();
+    close();
+    break;
+  case WEATHER_ALERT:
+  case EVACUATE:
+    landDrones();
+    std::cout << "    >>> All drones GROUNDED." << std::endl;
+    break;
+  case RUNWAY_ACTIVE:
+    landDrones();
+    std::cout << "    >>> Drones grounded – runway is active." << std::endl;
+    break;
+  case RESUME:
+    open();
+    startDemonstration();
+    std::cout << "    >>> Drones cleared for take-off." << std::endl;
+    break;
+  default:
+    break;
+  }
 }
+
 DroneDisplayUnit::~DroneDisplayUnit()
 {
 }

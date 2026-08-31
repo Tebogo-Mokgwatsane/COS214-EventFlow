@@ -16,8 +16,6 @@ void Gate::startAdmitting()
   {
     std::cerr << "Error: Cannot start admitting. The gate is either closed or set to exit-only mode." << std::endl;
   }
-  {
-  }
 }
 
 void Gate::stopAdmitting()
@@ -52,10 +50,43 @@ void Gate::reportStatus() const
   std::cout << "Admitting: " << (admitting ? "Yes" : "No") << std::endl;
   std::cout << "Exit Only: " << (exitOnly ? "Yes" : "No") << std::endl;
 }
+
 void Gate::update(const Notice& notice)
 {
-  //implement here
+  std::cout << "  [Gate] " << getName() << " received notice: " << notice.getMessage() << std::endl;
+  switch (notice.getType())
+  {
+  case OPEN_NOTICE:
+    open();
+    setExitOnly(false);
+    startAdmitting();
+    break;
+  case CLOSE_NOTICE:
+    stopAdmitting();
+    close();
+    break;
+  case CAPACITY_ALERT:
+    stopAdmitting();
+    std::cout << "    >>> Gate CLOSED to new admissions (capacity)." << std::endl;
+    break;
+  case EVACUATE:
+    setExitOnly(true);
+    stopAdmitting();
+    std::cout << "    >>> Gate switched to EXIT-ONLY mode." << std::endl;
+    break;
+  case RESUME:
+    open();
+    setExitOnly(false);
+    startAdmitting();
+    break;
+  case WEATHER_ALERT:
+    std::cout << "    >>> Gate remains operational during weather alert." << std::endl;
+    break;
+  default:
+    break;
+  }
 }
+
 Gate::~Gate()
 {
 }

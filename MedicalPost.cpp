@@ -24,10 +24,33 @@ void MedicalPost::reportStatus() const
   std::cout << "Status: " << (isOpen ? "Open" : "Closed") << std::endl;
   std::cout << "Emergency Mode: " << (emergencyMode ? "Active" : "Inactive") << std::endl;
 }
+
 void MedicalPost::update(const Notice& notice)
 {
-  //implement here
+  std::cout << "  [MedicalPost] " << getName() << " received notice: " << notice.getMessage() << std::endl;
+  switch (notice.getType())
+  {
+  case OPEN_NOTICE:
+  case RESUME:
+    open();
+    exitEmergencyMode();
+    break;
+  case CLOSE_NOTICE:
+    // Medical stays open for emergencies
+    std::cout << "    >>> Medical post stays open for emergencies." << std::endl;
+    break;
+  case EVACUATE:
+  case WEATHER_ALERT:
+  case CAPACITY_ALERT:
+    open();
+    enterEmergencyMode();
+    std::cout << "    >>> Medical post remains ACTIVE." << std::endl;
+    break;
+  default:
+    break;
+  }
 }
+
 MedicalPost::~MedicalPost()
 {
 }

@@ -37,10 +37,42 @@ void VendorStall::reportStatus() const
   std::cout << "Serving: " << (serving ? "Yes" : "No") << std::endl;
   std::cout << "Outdoor: " << (outdoor ? "Yes" : "No") << std::endl;
 }
+
 void VendorStall::update(const Notice& notice)
 {
-  //implement here
+  std::cout << "  [VendorStall] " << getName() << " received notice: " << notice.getMessage() << std::endl;
+  switch (notice.getType())
+  {
+  case OPEN_NOTICE:
+  case RESUME:
+    open();
+    startServing();
+    break;
+  case CLOSE_NOTICE:
+    stopServing();
+    close();
+    break;
+  case WEATHER_ALERT:
+    if (outdoor && notice.getSeverity() >= 4)
+    {
+      stopServing();
+      std::cout << "    >>> Outdoor serving suspended (severe weather)." << std::endl;
+    }
+    else
+    {
+      std::cout << "    >>> Stall continues (indoor or mild weather)." << std::endl;
+    }
+    break;
+  case EVACUATE:
+    stopServing();
+    close();
+    std::cout << "    >>> Stall closed – evacuate." << std::endl;
+    break;
+  default:
+    break;
+  }
 }
+
 VendorStall::~VendorStall()
 {
 }

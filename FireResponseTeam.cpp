@@ -37,10 +37,35 @@ void FireResponseTeam::reportStatus() const
   std::cout << "High Readiness: " << (highReadiness ? "Yes" : "No") << std::endl;
   std::cout << "Deployed: " << (deployed ? "Yes" : "No") << std::endl;
 }
+
 void FireResponseTeam::update(const Notice& notice)
 {
-  //implement here
+  std::cout << "  [FireResponseTeam] " << getName() << " received notice: " << notice.getMessage() << std::endl;
+  switch (notice.getType())
+  {
+  case OPEN_NOTICE:
+    open();
+    normalReadiness();
+    break;
+  case CLOSE_NOTICE:
+    // Stay ready even if area closes
+    std::cout << "    >>> Team stays ready despite area close." << std::endl;
+    break;
+  case WEATHER_ALERT:
+  case EVACUATE:
+  case CAPACITY_ALERT:
+    increaseReadiness();
+    std::cout << "    >>> Team remains OPERATIONAL and on high readiness." << std::endl;
+    break;
+  case RESUME:
+    standDown();
+    open();
+    break;
+  default:
+    break;
+  }
 }
+
 FireResponseTeam::~FireResponseTeam()
 {
 }

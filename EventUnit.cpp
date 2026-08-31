@@ -17,13 +17,12 @@ void EventUnit::close()
 
 int EventUnit::getCapacity() const
 {
-  std::cout << "Capacity: " << capacity << std::endl;
   return capacity;
 }
 
 void EventUnit::reportStatus() const
 {
-  std::cout << "Status: " << (isOpen ? "Open" : "Closed") << std::endl;
+  std::cout << "Status: " << (isOpen ? "Open" : "Closed") << " | Capacity: " << capacity << std::endl;
 }
 
 EventUnit::~EventUnit() {}
