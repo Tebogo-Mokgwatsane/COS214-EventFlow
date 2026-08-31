@@ -14,6 +14,7 @@ public:
   void startServing();
   void stopServing();
   bool isOutdoor() const;
+  void update(const Notice& notice) override;
   virtual void reportStatus() const override;
   virtual ~VendorStall();
 };

@@ -2,11 +2,10 @@
 #define EVENTGROUP_H
 
 #include "EventComponent.h"
-// #include "Subject.h"
+#include "Subject.h"
 #include <vector>
 
-class EventGroup : public EventComponent
-//  public Subject
+class EventGroup : public EventComponent,public Subject
 
 {
 private:
@@ -14,6 +13,7 @@ private:
 
 public:
   EventGroup(const std::string &name);
+  void update(const Notice& notice) override;
   void add(EventComponent *child);
   EventComponent *remove(EventComponent *child);
   virtual void open();

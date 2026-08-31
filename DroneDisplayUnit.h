@@ -13,6 +13,7 @@ public:
   DroneDisplayUnit(const std::string &name, int capacity);
   void startDemonstration();
   void landDrones();
+  void update(const Notice& notice) override;
   virtual void reportStatus() const override;
   virtual ~DroneDisplayUnit();
 };

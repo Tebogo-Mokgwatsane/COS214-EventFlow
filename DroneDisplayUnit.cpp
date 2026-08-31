@@ -34,7 +34,10 @@ void DroneDisplayUnit::reportStatus() const
   std::cout << "Airborne: " << (airbone ? "Yes" : "No") << std::endl;
   std::cout << "Demonstration Active: " << (demonstrationActive ? "Yes" : "No") << std::endl;
 }
-
+void DroneDisplayUnit::update(const Notice& notice)
+{
+  
+}
 DroneDisplayUnit::~DroneDisplayUnit()
 {
 }

@@ -24,7 +24,10 @@ void MedicalPost::reportStatus() const
   std::cout << "Status: " << (isOpen ? "Open" : "Closed") << std::endl;
   std::cout << "Emergency Mode: " << (emergencyMode ? "Active" : "Inactive") << std::endl;
 }
-
+void MedicalPost::update(const Notice& notice)
+{
+  //implement here
+}
 MedicalPost::~MedicalPost()
 {
 }

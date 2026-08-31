@@ -16,6 +16,7 @@ public:
   void setDelayed(bool delayed);
   void changeRoute(const std::string &newRoute);
   void restoreNormalRoute();
+  void update(const Notice& notice) override;
   virtual void reportStatus() const override;
   virtual ~ShuttleStop();
 };

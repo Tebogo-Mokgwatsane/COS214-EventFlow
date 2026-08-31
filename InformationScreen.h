@@ -11,6 +11,7 @@ private:
 
 public:
   InformationScreen(const std::string &name);
+  void update(const Notice& notice) override;
   void displayMessage(const std::string &message);
   virtual void reportStatus() const override;
   virtual ~InformationScreen();

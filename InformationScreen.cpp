@@ -14,7 +14,10 @@ void InformationScreen::reportStatus() const
 {
   std::cout << "Information Screen: " << getName() << (isOpen ? " - Open" : " - Closed") << " - Displayed Message: " << displayedMessage << std::endl;
 }
-
+void InformationScreen::update(const Notice& notice)
+{
+  //implement here
+}
 InformationScreen::~InformationScreen()
 {
 }

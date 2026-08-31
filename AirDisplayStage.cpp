@@ -54,7 +54,10 @@ void AirDisplayStage::reportStatus() const
   std::cout << "Status: " << (isOpen ? "Open" : "Closed") << std::endl;
   std::cout << "Performing: " << (performing ? (paused ? "Paused" : "Yes") : "No") << std::endl;
 }
-
+void AirDisplayStage::update(const Notice& notice)
+{
+  //implement here
+}
 AirDisplayStage::~AirDisplayStage()
 {
 }

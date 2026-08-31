@@ -89,3 +89,7 @@ EventGroup::~EventGroup()
 
   children.clear();
 }
+void EventGroup::update(const Notice& notice)
+{
+    notify(notice);
+}

@@ -16,6 +16,7 @@ public:
   void stopAdmitting();
   void setExitOnly(bool exitOnly);
   void setCurrentCapacity(int currentCapacity);
+  void update(const Notice& notice) override;
   virtual void reportStatus() const override;
   virtual ~Gate();
 };

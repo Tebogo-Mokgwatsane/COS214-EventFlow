@@ -37,7 +37,10 @@ void FireResponseTeam::reportStatus() const
   std::cout << "High Readiness: " << (highReadiness ? "Yes" : "No") << std::endl;
   std::cout << "Deployed: " << (deployed ? "Yes" : "No") << std::endl;
 }
-
+void FireResponseTeam::update(const Notice& notice)
+{
+  //implement here
+}
 FireResponseTeam::~FireResponseTeam()
 {
 }
