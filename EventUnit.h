@@ -7,7 +7,6 @@ class EventUnit : public EventComponent
 {
 private:
   int capacity;
-
 public:
   EventUnit(const std::string &name, int capacity);
   virtual void open();

@@ -10,6 +10,7 @@ private:
 
 public:
   MedicalPost(const std::string &name, int capacity);
+  void update(const Notice& notice) override;
   void enterEmergencyMode();
   void exitEmergencyMode();
   virtual void reportStatus() const override;

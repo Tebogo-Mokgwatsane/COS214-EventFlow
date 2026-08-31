@@ -17,6 +17,7 @@ public:
   void pausePerformance();
   void stopPerformance();
   void setCurrentSlot(const std::string &slot);
+  void update(const Notice& notice) override;
   virtual void reportStatus() const;
   virtual ~AirDisplayStage();
 };

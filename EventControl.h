@@ -5,14 +5,14 @@
 #include "Notice.h"
 using namespace std;
 
-class EventController:public Subject
+class EventControl:public Subject
 {
     private:
         string name;
         Notice currentNotice;
     public:
-        EventController(){};
-        EventController(const string &name,const Notice &intialNotice);
+        EventControl(){};
+        EventControl(const string &name,const Notice &intialNotice);
         const Notice & getCurrentNotice()const;
         void issueNotice(const Notice& notice);
 
