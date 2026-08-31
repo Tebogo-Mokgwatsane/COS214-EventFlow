@@ -1,31 +1,41 @@
-CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic
+# Makefile for EventFlow – SkyPulse Airshow (COS214 Practical 3)
 
-TARGET = eventflow
+CXX      = g++
+CXXFLAGS = -std=c++11 -Wall -Wextra -g
+LDFLAGS  =
 
-SOURCES = main.cpp \
-          EventComponent.cpp \
-          EventUnit.cpp \
-          EventGroup.cpp \
-          AirDisplayStage.cpp \
-          Gate.cpp \
-          VendorStall.cpp \
-          MedicalPost.cpp \
-          ShuttleStop.cpp \
-          InformationScreen.cpp \
-          DroneDisplayUnit.cpp \
-          FireResponseTeam.cpp
+SOURCES  = $(wildcard *.cpp)
+OBJECTS  = $(SOURCES:.cpp=.o)
 
-OBJECTS = $(SOURCES:.cpp=.o)
+TARGET   = eventflow
+
+.PHONY: all clean run compile valgrind rebuild
+
+all: $(TARGET)
+
+compile: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
+	@echo "Built $(TARGET) successfully."
 
+# Each .cpp produces a .o in the same directory
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-clean:
-	rm -f $(OBJECTS) $(TARGET)
-
+# Run the interactive program
 run: $(TARGET)
 	./$(TARGET)
+
+# Memory-leak check
+valgrind: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET)
+
+# Remove build artefacts
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+	clear
+	@echo "Cleaned."
+
+# Rebuild from scratch
+rebuild: clean all

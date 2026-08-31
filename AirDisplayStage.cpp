@@ -54,10 +54,49 @@ void AirDisplayStage::reportStatus() const
   std::cout << "Status: " << (isOpen ? "Open" : "Closed") << std::endl;
   std::cout << "Performing: " << (performing ? (paused ? "Paused" : "Yes") : "No") << std::endl;
 }
+
 void AirDisplayStage::update(const Notice& notice)
 {
-  //implement here
+  std::cout << "  [AirDisplayStage] " << getName() << " received notice: " << notice.getMessage() << std::endl;
+  switch (notice.getType())
+  {
+  case OPEN_NOTICE:
+    open();
+    startPerformance();
+    break;
+  case CLOSE_NOTICE:
+    stopPerformance();
+    close();
+    break;
+  case WEATHER_ALERT:
+    if (notice.getSeverity() >= 3)
+    {
+      if (performing) pausePerformance();
+      std::cout << "    >>> PAUSING air display due to weather (severity " << notice.getSeverity() << ")!" << std::endl;
+    }
+    break;
+  case EVACUATE:
+    if (performing) stopPerformance();
+    close();
+    std::cout << "    >>> Air display ABORTED – evacuate!" << std::endl;
+    break;
+  case RESUME:
+    open();
+    startPerformance();
+    std::cout << "    >>> Performance resumed." << std::endl;
+    break;
+  case SCHEDULE_CHANGE:
+    setCurrentSlot(notice.getMessage());
+    std::cout << "    >>> Schedule updated to: " << currentSlot << std::endl;
+    break;
+  case RUNWAY_ACTIVE:
+    std::cout << "    >>> Runway active – display continues if safe." << std::endl;
+    break;
+  default:
+    break;
+  }
 }
+
 AirDisplayStage::~AirDisplayStage()
 {
 }
